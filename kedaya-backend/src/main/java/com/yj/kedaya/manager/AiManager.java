@@ -22,7 +22,7 @@ public class AiManager {
     private ClientV4 clientV4;
 
     // 稳定的随机数
-    private static final float STABLE_TEMPERATURE = 0.10f;
+    private static final float STABLE_TEMPERATURE = 0.06f;
 
     // 不稳定的随机数
     private static final float UNSTABLE_TEMPERATURE = 0.99f;

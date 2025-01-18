@@ -91,6 +91,8 @@ public class UserAnswerController {
             // ignore error
         }
         // 返回新写入的数据 id
+        // todo test
+        userAnswer.setAppType(1);
         long newUserAnswerId = userAnswer.getId();
         // 调用评分模块
         try {

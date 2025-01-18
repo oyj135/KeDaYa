@@ -2,6 +2,8 @@ package com.yj.kedaya.scoring;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.yj.kedaya.common.ErrorCode;
+import com.yj.kedaya.exception.BusinessException;
 import com.yj.kedaya.model.dto.question.QuestionContentDTO;
 import com.yj.kedaya.model.entity.App;
 import com.yj.kedaya.model.entity.Question;
@@ -13,7 +15,9 @@ import com.yj.kedaya.service.ScoringResultService;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 自定义打分类应用评分策略
@@ -46,19 +50,17 @@ public class CustomScoreScoringStrategy implements ScoringStrategy {
         QuestionVO questionVO = QuestionVO.objToVo(question);
         List<QuestionContentDTO> questionContent = questionVO.getQuestionContent();
 
+        // 校验数量
+        if (questionContent.size() != choices.size()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "题目和用户答案数量不一致");
+        }
+
         // 遍历题目列表
-        for (QuestionContentDTO questionContentDTO : questionContent) {
-            // 遍历答案列表
-            for (String answer : choices) {
-                // 遍历题目中的选项
-                for (QuestionContentDTO.Option option : questionContentDTO.getOptions()) {
-                    // 如果答案和选项的key匹配
-                    if (option.getKey().equals(answer)) {
-                        int score = Optional.of(option.getScore()).orElse(0);
-                        totalScore += score;
-                    }
-                }
-            }
+        for (int i = 0; i < questionContent.size(); i++) {
+            Map<String, Integer> resultMap = questionContent.get(i).getOptions().stream()
+                    .collect(Collectors.toMap(QuestionContentDTO.Option::getKey, QuestionContentDTO.Option::getScore));
+            Integer score = Optional.ofNullable(resultMap.get(choices.get(i))).orElse(0);
+            totalScore += score;
         }
 
         // 3. 遍历得分结果，找到第一个用户分数大于得分范围的结果，作为最终结果

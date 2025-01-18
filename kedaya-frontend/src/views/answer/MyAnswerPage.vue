@@ -213,6 +213,6 @@ const columns = [
 const scrollbar = ref(true);
 const scrollPercent = {
   x: "140%",
-  y: "30%",
+  y: "100%",
 };
 </script>
