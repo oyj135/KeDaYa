@@ -24,6 +24,14 @@ create table if not exists user
     index idx_unionId (unionId)
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
+ALTER TABLE user
+    ADD phoneNumber VARCHAR(20) COMMENT '手机号',
+    ADD email VARCHAR(256) COMMENT '邮箱',
+    ADD grade VARCHAR(50) COMMENT '年级',
+    ADD workExperience VARCHAR(512) COMMENT '工作经验',
+    ADD expertiseDirection VARCHAR(512) COMMENT '擅长方向';
+
+
 -- 应用表
 create table if not exists app
 (
