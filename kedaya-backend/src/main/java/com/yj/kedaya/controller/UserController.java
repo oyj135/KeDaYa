@@ -9,12 +9,7 @@ import com.yj.kedaya.common.ResultUtils;
 import com.yj.kedaya.constant.UserConstant;
 import com.yj.kedaya.exception.BusinessException;
 import com.yj.kedaya.exception.ThrowUtils;
-import com.yj.kedaya.model.dto.user.UserAddRequest;
-import com.yj.kedaya.model.dto.user.UserLoginRequest;
-import com.yj.kedaya.model.dto.user.UserQueryRequest;
-import com.yj.kedaya.model.dto.user.UserRegisterRequest;
-import com.yj.kedaya.model.dto.user.UserUpdateMyRequest;
-import com.yj.kedaya.model.dto.user.UserUpdateRequest;
+import com.yj.kedaya.model.dto.user.*;
 import com.yj.kedaya.model.entity.User;
 import com.yj.kedaya.model.vo.LoginUserVO;
 import com.yj.kedaya.model.vo.UserVO;
@@ -180,6 +175,32 @@ public class UserController {
         }
         User user = new User();
         BeanUtils.copyProperties(userUpdateRequest, user);
+        boolean result = userService.updateById(user);
+        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+        return ResultUtils.success(true);
+    }
+
+    /**
+     * 编辑用户信息（支持用户和管理员）
+     *
+     * @param userEditRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/edit")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Boolean> editUser(@RequestBody UserEditRequest userEditRequest,
+                                            HttpServletRequest request) {
+        if (userEditRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 获取当前登录用户
+        User loginUser = userService.getLoginUser(request);
+        // 构建更新对象
+        User user = new User();
+        BeanUtils.copyProperties(userEditRequest, user);
+        // 如果是用户编辑自己，强制设置 ID 为当前用户 ID（防止越权修改）
+        user.setId(loginUser.getId());
         boolean result = userService.updateById(user);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);

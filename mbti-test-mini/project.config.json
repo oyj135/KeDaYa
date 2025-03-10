@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "projectname": "mbti-test-mini",
   "description": "",
-  "appid": "touristappid",
+  "appid": "wx370d9458c983e21d",
   "setting": {
     "urlCheck": true,
     "es6": false,
