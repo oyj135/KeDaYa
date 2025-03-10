@@ -32,7 +32,7 @@ spring:
   servlet:
     multipart:
       # 大小限制
-      max-file-size: 10MB
+      max-file-size: 10MB  
   # 分库分表配置
   shardingsphere:
     #数据源配置
@@ -55,7 +55,7 @@ spring:
             ## inline 类型是简单的配置文件里面就能写的类型，其他还有自定义类等等
             type: INLINE
             props:
-              algorithm-expression: user_answer_$->{appId % 2}
+              algorithm-expression: user_answer_$->{appId % 2}  
         tables:
           user_answer:
             actual-data-nodes: kedaya.user_answer_$->{0..1}
@@ -75,7 +75,7 @@ server:
         max-age: 2592000
 mybatis-plus:
   configuration:
-    map-underscore-to-camel-case: false
+    map-underscore-to-camel-case: false  
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
@@ -85,11 +85,10 @@ mybatis-plus:
 # cos对象存储
 cos:
   client:
-    accessKey: AKIDLZbUFoCNODuRkZHmHrLdoriNp7D7oIZd
-
-    secretKey: ubSAfz85rQegXCmjYFnCaqyvhHiy64sY
-    region: ap-guangzhou
-    bucket: yangjian-1336778056
+    accessKey: xxx
+    secretKey: xxx
+    region: xxx
+    bucket: xxx
 # 接口文档配置
 knife4j:
   enable: true
@@ -103,5 +102,5 @@ knife4j:
           - com.yj.kedaya.controller
 # AI 配置q
 ai:
-  apiKey: edc719950a27e177b56a4a9a67e0e350.BhFmO4d0i6uz5eMM
+  apiKey: xxx   
 

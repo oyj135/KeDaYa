@@ -61,10 +61,10 @@ spring:
 # cos对象存储
 cos:
   client:
-    accessKey: AKIDLZbUFoCNODuRkZHmHrLdoriNp7D7oIZd
-    secretKey: ubSAfz85rQegXCmjYFnCaqyvhHiy64sY
-    region: ap-guangzhou
-    bucket: yangjian-1336778056
+    accessKey: xxx
+    secretKey: xxx
+    region: xxx
+    bucket: xxx
 mybatis-plus:
   configuration:
     # 生产环境关闭日志
@@ -77,4 +77,4 @@ knife4j:
     password: 123456
 # AI 配置
 ai:
-  apiKey: edc719950a27e177b56a4a9a67e0e350.BhFmO4d0i6uz5eMM
+  apiKey: xxx
