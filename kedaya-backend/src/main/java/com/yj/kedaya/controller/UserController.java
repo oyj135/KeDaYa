@@ -201,8 +201,11 @@ public class UserController {
         BeanUtils.copyProperties(userEditRequest, user);
         // 如果是用户编辑自己，强制设置 ID 为当前用户 ID（防止越权修改）
         user.setId(loginUser.getId());
+        // 调用userService的updateById方法，尝试更新用户信息，并将返回的结果存储在result变量中
         boolean result = userService.updateById(user);
+        // 使用ThrowUtils的throwIf方法，如果result为false（即更新失败），则抛出ErrorCode.OPERATION_ERROR异常
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+        // 返回一个成功的操作结果，使用ResultUtils的success方法，传入true表示操作成功
         return ResultUtils.success(true);
     }
 
