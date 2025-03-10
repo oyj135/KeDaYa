@@ -47,6 +47,7 @@ declare namespace API {
   type AppAnswerCountDTO = {
     answerCount?: number;
     appId?: number;
+    appName?: string;
   };
 
   type AppAnswerResultCountDTO = {
@@ -291,12 +292,17 @@ declare namespace API {
 
   type LoginUserVO = {
     createTime?: string;
+    email?: string;
+    expertiseDirection?: string;
+    grade?: string;
     id?: number;
+    phoneNumber?: string;
     updateTime?: string;
     userAvatar?: string;
     userName?: string;
     userProfile?: string;
     userRole?: string;
+    workExperience?: string;
   };
 
   type Option = {
@@ -581,9 +587,13 @@ declare namespace API {
 
   type User = {
     createTime?: string;
+    email?: string;
+    expertiseDirection?: string;
+    grade?: string;
     id?: number;
     isDelete?: number;
     mpOpenId?: string;
+    phoneNumber?: string;
     unionId?: string;
     updateTime?: string;
     userAccount?: string;
@@ -592,6 +602,7 @@ declare namespace API {
     userPassword?: string;
     userProfile?: string;
     userRole?: string;
+    workExperience?: string;
   };
 
   type UserAddRequest = {
@@ -671,6 +682,17 @@ declare namespace API {
     updateTime?: string;
     user?: UserVO;
     userId?: number;
+  };
+
+  type UserEditRequest = {
+    email?: string;
+    expertiseDirection?: string;
+    grade?: string;
+    phoneNumber?: string;
+    userAvatar?: string;
+    userName?: string;
+    userProfile?: string;
+    workExperience?: string;
   };
 
   type UserLoginRequest = {
